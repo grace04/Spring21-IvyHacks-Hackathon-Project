@@ -23,8 +23,9 @@ public class SortingGame implements ActionListener {
 	Font font = new Font("serif", Font.PLAIN, 32);
 	
 	String[] itemsArr = {"Newspaper", "Cardboard", "Styrofoam", "Rubberbands", "Fruit peel", "Tea bag"};
-	ArrayList<String> itemsAL = new ArrayList<String>();
+	//ArrayList<String> itemsAL = new ArrayList<String>(); //enable for random
 	int score = 0;
+	int counter = 0;
 	
 	/*public static void main(String[] args) {
 		SortingGame sg = new SortingGame();
@@ -73,23 +74,42 @@ public class SortingGame implements ActionListener {
 	}
 	
 	public void game() {
-		if(!itemsAL.isEmpty())
+		/*if(!itemsAL.isEmpty())
 			itemsAL.clear();
 		for(String s : itemsArr) {
 			itemsAL.add(s);
-		}
+		}*/ //enable for random
 		
 		score = 0;
 		scoLab.setText(score + "/6");
+		label.setText("");
 		secLab.setText("");
 		scoLab.setFont(font);
 		secLab.setFont(font);
 		label.setFont(font);
 		
-		nextItem(false);
+		counter = 0;
+		
+		//nextRand(false); //enable for random
+		nextItem(false); //disable for random
 	}
 	
 	public void nextItem(boolean prev) {
+		if(prev)
+			score++;
+		scoLab.setText(score + "/6");
+		if(counter<6) {
+			label.setText(itemsArr[counter]);
+			System.out.println(counter); //test
+		}
+		else {
+			//System.out.println("done"); //test
+			label.setText("Congratulations, you have finished.");
+			secLab.setText("Your score is " + score + " out of 6.");
+		}
+	} //disable for random
+	
+	/*public void nextRand(boolean prev) {
 		if(prev)
 			score++;
 		scoLab.setText(score + "/6");
@@ -106,7 +126,7 @@ public class SortingGame implements ActionListener {
 			label.setText("Congratulations, you have finished.");
 			secLab.setText("Your score is " + score + " out of 6.");
 		}
-	}
+	}*/ //enable for random
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -115,20 +135,26 @@ public class SortingGame implements ActionListener {
 		if(bp.equals(replay))
 			game();
 		if(label.getText().equals(itemsArr[0])||label.getText().equals(itemsArr[1])) {
-			if(bp.equals(rec))
+			if(bp.equals(rec)) {
+				counter++;
 				nextItem(true);
+			}
 			else
 				nextItem(false);
 		}
 		if(label.getText().equals(itemsArr[2])||label.getText().equals(itemsArr[3])) {
-			if(bp.equals(tra))
+			if(bp.equals(tra)) {
+				counter++;
 				nextItem(true);
+			}
 			else
 				nextItem(false);
 		}
 		if(label.getText().equals(itemsArr[4])||label.getText().equals(itemsArr[5])) {
-			if(bp.equals(com))
+			if(bp.equals(com)) {
+				counter++;
 				nextItem(true);
+			}
 			else
 				nextItem(false);
 		}
