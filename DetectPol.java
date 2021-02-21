@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +58,7 @@ public class DetectPol implements ActionListener {
 		frame.setVisible(true);
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel.setBackground(Color.LIGHT_GRAY);
 		
 		locCB = new JComboBox<String>();
 		locCB.setFont(font);
@@ -221,13 +223,27 @@ public class DetectPol implements ActionListener {
 				temp = arr;
 				break;
 			}
-		}
+		}	
 		
 		aqdtm.removeRow(0);
 		aqdtm.removeRow(0);
 		aqdtm.addRow(airqCols);
 		aqdtm.addRow(temp);
 		airqTab.setEnabled(false);
+		
+		int x = Integer.parseInt(temp[1]);
+		if(x<=50)
+			airqTab.setBackground(Color.green);
+		else if(x<=100)
+			airqTab.setBackground(Color.yellow);
+		else if(x<=150)
+			airqTab.setBackground(Color.orange);
+		else if(x<=200)
+			airqTab.setBackground(Color.red);
+		else
+			airqTab.setBackground(Color.magenta);
+		
+		
 		airqTab.setModel(aqdtm);
 	}
 	
@@ -245,6 +261,21 @@ public class DetectPol implements ActionListener {
 		covdtm.addRow(covidCols);
 		covdtm.addRow(temp);
 		covidTab.setEnabled(false);
+		
+		if(temp[3].contains(","))
+			covidTab.setBackground(Color.magenta);
+		else {
+			int x = Integer.parseInt(temp[3]);
+			if(x<=50)
+				covidTab.setBackground(Color.green);
+			else if(x<=100)
+				covidTab.setBackground(Color.yellow);
+			else if(x<=250)
+				covidTab.setBackground(Color.orange);
+			else if(x<=500)
+				covidTab.setBackground(Color.red);
+		}
+		
 		covidTab.setModel(covdtm);
 	}
 	
@@ -260,6 +291,7 @@ public class DetectPol implements ActionListener {
 		}
 		
 		infoTA.setText(t);
+		infoTA.setBackground(Color.pink);
 		
 		/*infdtm.removeRow(0);
 		infdtm.addRow(temp);
@@ -292,7 +324,9 @@ public class DetectPol implements ActionListener {
 		if(buttonPressed.equals(helpBut)) {
 			JOptionPane.showMessageDialog(null, "PM: particulate matter, 2.5 or 10 refers to the size of the particle\n"
 					+ "AQI: Air Quality index. It is a scale from 0 to 500 that judges air quality\n"
-					+ "For more information about AQI, visit: https://www.airnow.gov/aqi/aqi-basics/");
+					+ "For more information about AQI, visit: https://www.airnow.gov/aqi/aqi-basics/\n"
+					+ "\nColor code (from least to most severe): "
+					+ "green, yellow, orange, red, magenta");
 		}
 		if(buttonPressed.equals(hychBut)) {
 			JOptionPane.showMessageDialog(null, "To improve air quality in your city, always try to use your car less.\n"
