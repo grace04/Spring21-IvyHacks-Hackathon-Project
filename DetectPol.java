@@ -338,7 +338,7 @@ public class DetectPol implements ActionListener {
 		}
 		if(buttonPressed.equals(sourceBut)) {
 			JOptionPane.showMessageDialog(null, "Air Quality: https://www.airnow.gov/\n"
-					+ "Source: https://www.nytimes.com/interactive/2020/us/california-coronavirus-cases.html");
+					+ "Covid: https://www.nytimes.com/interactive/2020/us/california-coronavirus-cases.html");
 		}
 		if(buttonPressed.equals(gameBut)) {
 			sortGame();
